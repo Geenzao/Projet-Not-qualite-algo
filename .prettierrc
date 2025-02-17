@@ -4,5 +4,6 @@
     "singleQuote": false,
     "trailingComma": "none",
     "printWidth": 180,
-    "endOfLine": "lf"
+    "endOfLine": "lf",
+    "formatOnSave": true
 }
