@@ -1,0 +1,17 @@
+{
+  "name": "blog-quality-project",
+  "version": "1.0.0",
+  "description": "Projet noté - Qualité algorithmique",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
+  },
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
