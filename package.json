@@ -1,17 +1,38 @@
 {
-  "name": "blog-quality-project",
-  "version": "1.0.0",
-  "description": "Projet noté - Qualité algorithmique",
-  "main": "src/index.js",
-  "scripts": {
-    "start": "node src/index.js",
-    "dev": "nodemon src/index.js"
-  },
-  "dependencies": {
-    "ejs": "^3.1.10",
-    "express": "^4.21.2"
-  },
-  "devDependencies": {
-    "nodemon": "^3.1.9"
-  }
+    "name": "blog-quality-project",
+    "version": "1.0.0",
+    "description": "Projet noté - Qualité algorithmique",
+    "main": "src/index.js",
+    "scripts": {
+        "start": "node src/index.js",
+        "dev": "nodemon src/index.js",
+        "format": "prettier --write \"src/**/*.{js,json}\"",
+        "format:check": "prettier --check \"src/**/*.{js,json}\"",
+        "lint": "eslint src/**/*.js",
+        "lint:fix": "eslint src/**/*.js --fix",
+        "prepare": "husky",
+        "test": "cmd"
+    },
+    "dependencies": {
+        "ejs": "^3.1.10",
+        "express": "^4.21.2"
+    },
+    "devDependencies": {
+        "@commitlint/cli": "^19.7.1",
+        "@commitlint/config-conventional": "^19.7.1",
+        "eslint": "^8.57.1",
+        "eslint-config-airbnb-base": "^15.0.0",
+        "eslint-config-prettier": "^10.0.1",
+        "eslint-plugin-import": "^2.31.0",
+        "eslint-plugin-prettier": "^5.2.3",
+        "husky": "^9.1.7",
+        "nodemon": "^3.1.9",
+        "prettier": "^3.5.1"
+    },
+    "husky": {
+        "hooks": {
+            "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+            "pre-commit": "prettier --write \"**/*.{js,jsx,ts,tsx,css,scss,json,md}\""
+        }
+    }
 }
