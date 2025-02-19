@@ -2,21 +2,26 @@
     "name": "blog-quality-project",
     "version": "1.0.0",
     "description": "Projet noté - Qualité algorithmique",
-    "main": "src/index.js",
+    "main": "src/index.ts",
     "scripts": {
-        "start": "node src/index.js",
-        "dev": "nodemon src/index.js",
-        "format": "prettier --write \"src/**/*.{js,json}\"",
-        "format:check": "prettier --check \"src/**/*.{js,json}\"",
-        "lint": "eslint src/**/*.js",
-        "lint:fix": "eslint src/**/*.js --fix",
-        "prepare": "husky",
-        "test": "cmd"
+        "start": "node dist/index.js",
+        "dev": "nodemon src/index.ts",
+        "format": "prettier --write \"src/**/*.{ts,tsx,json}\"",
+        "format:check": "prettier --check \"src/**/*.{ts,tsx,json}\"",
+        "lint": "eslint src/**/*.{ts,tsx}",
+        "lint:fix": "eslint src/**/*.{ts,tsx} --fix",
+        "prepare": "husky install",
+        "test": "cmd",
+        "build": "tsc"
     },
     "dependencies": {
         "blog-quality-project": "file:",
         "ejs": "^3.1.10",
-        "express": "^4.21.2"
+        "express": "^4.21.2",
+        "source-map-loader": "^5.0.0",
+        "ts-loader": "^9.5.2",
+        "ts-node": "^10.9.2",
+        "typescript-eslint": "^8.24.1"
     },
     "devDependencies": {
         "@commitlint/cli": "^19.7.1",
@@ -28,7 +33,8 @@
         "eslint-plugin-prettier": "^5.2.3",
         "husky": "^9.1.7",
         "nodemon": "^3.1.9",
-        "prettier": "^3.5.1"
+        "prettier": "^3.5.1",
+        "typescript": "^5.2.2"
     },
     "husky": {
         "hooks": {

@@ -76,3 +76,20 @@ module.exports = {
 ```
 
 Cela permet d'avoir des messages d'erreur en temps reel pour expliquer ce qui ne va pas dans le code.
+
+## 2. TypeScript
+
+Pour passer en TypeScript il a fallu installer les modules correspondants
+Les voilà:
+
+```
+ts-loader
+source-map-loader
+typescript-eslint
+ts-node
+```
+
+Il faut créer un fichier `tsconfig.json` dans lequel on spécifie des options comme le répertoire de sortie du build.
+Nous avons choisi le largement utilisé ./dist
+Après avoir ajouté les scripts node correspondants à TypeScript, il a fallu ensuite convertir les fichiers JS en TS.
+Enfin il a fallu configurer ESLINT pour ajouter les modules TS.
