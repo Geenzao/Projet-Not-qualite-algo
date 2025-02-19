@@ -77,7 +77,7 @@ module.exports = {
 
 Cela permet d'avoir des messages d'erreur en temps reel pour expliquer ce qui ne va pas dans le code.
 
-## 2. TypeScript
+## 3. TypeScript
 
 Pour passer en TypeScript il a fallu installer les modules correspondants
 Les voilà:
@@ -93,3 +93,32 @@ Il faut créer un fichier `tsconfig.json` dans lequel on spécifie des options c
 Nous avons choisi le largement utilisé ./dist
 Après avoir ajouté les scripts node correspondants à TypeScript, il a fallu ensuite convertir les fichiers JS en TS.
 Enfin il a fallu configurer ESLINT pour ajouter les modules TS.
+
+## 6. Monitoring et Reporting d'Erreurs
+
+Nous avons installé Sentry en utilisant cette documentation:
+https://docs.sentry.io/platforms/javascript/guides/node/
+Nous avons opté pour la version gratuite non self-hostée (SaaS) car ceci est un projet test.
+Grâce au wizard d'installation de Sentry nous avons fait en sorte d'envoyer les source maps pour avoir les piles d'appel. Elles seront update dans le script de build.
+
+Pour faire une erreur volontaire, voilà la procédure:
+
+```typescript
+const Sentry = require("@sentry/node");
+
+Sentry.startSpan(
+    {
+        op: "test",
+        name: "My First Test Span"
+    },
+    () => {
+        try {
+            throw new Error("This is a test error");
+        } catch (e) {
+            Sentry.captureException(e);
+        }
+    }
+);
+```
+
+Elle se retrouve bien sur notre compte Sentry.

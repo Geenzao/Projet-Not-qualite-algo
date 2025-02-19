@@ -1,5 +1,6 @@
 import express, { Request, Response } from "express";
 import PostService from "./services/PostService";
+require("./instrument");
 
 const app = express();
 
@@ -58,3 +59,19 @@ const PORT = process.env.PORT || 3009;
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
+
+const Sentry = require("@sentry/node");
+
+Sentry.startSpan(
+    {
+        op: "test",
+        name: "My First Test Span"
+    },
+    () => {
+        try {
+            throw new Error("This is a test error");
+        } catch (e) {
+            Sentry.captureException(e);
+        }
+    }
+);
