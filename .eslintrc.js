@@ -12,6 +12,17 @@ module.exports = {
     rules: {
         "no-console": "off",
         "import/prefer-default-export": "off",
-        "linebreak-style": ["error", "unix"]
+        "linebreak-style": ["error", "unix"],
+        "prettier/prettier": [
+            "error",
+            {
+                endOfLine: "lf",
+                tabWidth: 4,
+                semi: true,
+                singleQuote: false,
+                trailingComma: "none",
+                printWidth: 180
+            }
+        ]
     }
 };

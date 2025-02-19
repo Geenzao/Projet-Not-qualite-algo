@@ -42,4 +42,37 @@ Pour ce qui est de ESLint, j'ai mis cette ligne dans le settings.json :
 }
 ```
 
+et dans un fichier eslintrc.js :
+
+```json
+module.exports = {
+    env: {
+        browser: true,
+        es2021: true,
+        node: true
+    },
+    extends: ["airbnb-base", "eslint:recommended", "plugin:prettier/recommended"],
+    parserOptions: {
+        ecmaVersion: "latest",
+        sourceType: "module"
+    },
+    rules: {
+        "no-console": "off",
+        "import/prefer-default-export": "off",
+        "linebreak-style": ["error", "unix"],
+        "prettier/prettier": [
+            "error",
+            {
+                endOfLine: "lf",
+                tabWidth: 4,
+                semi: true,
+                singleQuote: false,
+                trailingComma: "none",
+                printWidth: 180
+            }
+        ]
+    }
+};
+```
+
 Cela permet d'avoir des messages d'erreur en temps reel pour expliquer ce qui ne va pas dans le code.
