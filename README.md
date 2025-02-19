@@ -44,7 +44,7 @@ Pour ce qui est de ESLint, j'ai mis cette ligne dans le settings.json :
 
 et dans un fichier eslintrc.js :
 
-```json
+```javascript
 module.exports = {
     env: {
         browser: true,
