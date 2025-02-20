@@ -82,7 +82,7 @@ Cela permet d'avoir des messages d'erreur en temps reel pour expliquer ce qui ne
 Pour passer en TypeScript il a fallu installer les modules correspondants
 Les voilà:
 
-```
+```shell
 ts-loader
 source-map-loader
 typescript-eslint
@@ -99,23 +99,52 @@ Enfin il a fallu configurer ESLINT pour ajouter les modules TS.
 Pour débugguer le projet avec --inspect on fait : node --inspect src/index.js
 On ouvre notre navigateur et on va dans la section inspecteur par exemple : chrome://inspect
 On clique sur "Open dedicated DevTools for Node".
-On va dans l'onglet source pour charger le fichier JS et on clique sur un numéro de ligne pour mettre un breakpoint, 
+On va dans l'onglet source pour charger le fichier JS et on clique sur un numéro de ligne pour mettre un breakpoint,
 puis on rafraichit la page pour déclencher le breakpoint ça permet d'inspecter les variables et exécuter ligne par ligne.
 
 Pour voir les performances avec autocannon on fait : npm install -g autocannon
 Puis on le met dans les "devDependencies" de `package.json`.
 On lance notre application avec : npm run dev
 
-Puis dans un autre terminal on fait : autocannon -c 100 -p 10 -d 10 http://localhost:3009/posts 
-Pour lancer 100 connexions pendant 10 secondes avec une pipeline de 10, sur notre route (GET) "posts" car elle récupère tous les posts, 
-donc potentiellement plus lourde. 
-On a comme résultats une latence trop longue (5000ms en moyenne, 9500ms max), un nombre de requête trop faible (8req/s en moyenne, 9req/s max), 
+Puis dans un autre terminal on fait : autocannon -c 100 -p 10 -d 10 http://localhost:3009/posts
+Pour lancer 100 connexions pendant 10 secondes avec une pipeline de 10, sur notre route (GET) "posts" car elle récupère tous les posts,
+donc potentiellement plus lourde.
+On a comme résultats une latence trop longue (5000ms en moyenne, 9500ms max), un nombre de requête trop faible (8req/s en moyenne, 9req/s max),
 on a 30% des requêtes qui échouent 610/2000 et un débit de 4.29 MB/sec.
 
-Esuite on fait : autocannon -c 100 -p 10 -d 10 http://localhost:3009/posts/1 
-Pour lancer 100 connexions pendant 10 secondes avec une pipeline de 10, sur notre route (GET) "posts/1"  pour tester la rapidité de récupération d’un post
+Esuite on fait : autocannon -c 100 -p 10 -d 10 http://localhost:3009/posts/1
+Pour lancer 100 connexions pendant 10 secondes avec une pipeline de 10, sur notre route (GET) "posts/1" pour tester la rapidité de récupération d’un post
 On a comme résultats une latence un peu longue (1500ms en moyenne, 2000ms max), un bon nombre de requête (623req/s en moyenne, 719req/s max)
-et un débit de 1,11 MB/sec. 
+et un débit de 1,11 MB/sec.
+
+## 5. Test Unitaires et End to End
+
+Pour les test unitaire avec vitest, il a fallu installer vitest via :
+
+```shell
+npm install vitest @testing-library/react @testing-library/jest-dom --save-dev
+```
+
+Vitest va permettre de lancer des tests sur les principale fonctionnalité juste en lancant une commande :
+
+```shell
+npm test
+```
+
+Avec cette commande on va lancer des tests sur getPostById, createPost et updatePost. Ces test sont situé dans `src/test/PostServices.test.ts`
+
+Pour ce qui est des test End to End, nous devons d'avord installer playwright :
+
+```shell
+npm init playwright@latest
+```
+
+Les tests end to end sont situé dans `src/test/e2e` et sont lu automatiquement lors du lancement des test. Voci l'ordre des commandes a éffectuer :
+
+```shell
+npm run dev
+npm run test:e2e
+```
 
 ## 6. Monitoring et Reporting d'Erreurs
 
