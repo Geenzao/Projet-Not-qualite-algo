@@ -42,40 +42,11 @@ Pour ce qui est de ESLint, j'ai mis cette ligne dans le settings.json :
 }
 ```
 
-et dans un fichier eslintrc.js :
+J'ai ensuite configuré ESlint pour ce projet en incluant l'intégration de prettier (eslint-config-prettier pour désactiver les configs eslint qui sont en conflict avec Prettier puis eslint-plugin-prettier pour la syncronisation).
 
-```javascript
-module.exports = {
-    env: {
-        browser: true,
-        es2021: true,
-        node: true
-    },
-    extends: ["airbnb-base", "eslint:recommended", "plugin:prettier/recommended"],
-    parserOptions: {
-        ecmaVersion: "latest",
-        sourceType: "module"
-    },
-    rules: {
-        "no-console": "off",
-        "import/prefer-default-export": "off",
-        "linebreak-style": ["error", "unix"],
-        "prettier/prettier": [
-            "error",
-            {
-                endOfLine: "lf",
-                tabWidth: 4,
-                semi: true,
-                singleQuote: false,
-                trailingComma: "none",
-                printWidth: 180
-            }
-        ]
-    }
-};
-```
-
-Cela permet d'avoir des messages d'erreur en temps reel pour expliquer ce qui ne va pas dans le code.
+Cela permet d'intégrer la config, et pour notre IDE d'avoir des messages d'erreur en temps reel pour expliquer ce qui ne va pas dans le code.
+On ignore aussi le dossier dist/ qui va plus tard contenir le build TS.
+Nous avons donc mis la règle de passer en ES modules et plus en CommonJS. Nous ne pouvons plus utiliser require().
 
 ## 3. TypeScript
 

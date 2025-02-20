@@ -1,49 +1,50 @@
 {
-  "name": "blog-quality-project",
-  "version": "1.0.0",
-  "description": "Projet noté - Qualité algorithmique",
-  "main": "src/index.ts",
-  "scripts": {
-    "start": "node dist/index.js",
-    "dev": "nodemon src/index.ts",
-    "format": "prettier --write \"src/**/*.{ts,tsx,json}\"",
-    "format:check": "prettier --check \"src/**/*.{ts,tsx,json}\"",
-    "lint": "eslint src/**/*.{ts,tsx}",
-    "lint:fix": "eslint src/**/*.{ts,tsx} --fix",
-    "prepare": "husky install",
-    "test": "cmd",
-    "build": "tsc && npm run sentry:sourcemaps",
-    "sentry:sourcemaps": "sentry-cli sourcemaps inject --org antoine-chabanel --project node ./dist && sentry-cli sourcemaps upload --org antoine-chabanel --project node ./dist"
-  },
-  "dependencies": {
-    "@sentry/cli": "^2.42.1",
-    "@sentry/node": "^9.1.0",
-    "@sentry/profiling-node": "^9.1.0",
-    "blog-quality-project": "file:",
-    "ejs": "^3.1.10",
-    "express": "^4.21.2",
-    "source-map-loader": "^5.0.0",
-    "ts-loader": "^9.5.2",
-    "ts-node": "^10.9.2",
-    "typescript-eslint": "^8.24.1"
-  },
-  "devDependencies": {
-    "@commitlint/cli": "^19.7.1",
-    "@commitlint/config-conventional": "^19.7.1",
-    "eslint": "^8.57.1",
-    "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-config-prettier": "^10.0.1",
-    "eslint-plugin-import": "^2.31.0",
-    "eslint-plugin-prettier": "^5.2.3",
-    "husky": "^9.1.7",
-    "nodemon": "^3.1.9",
-    "prettier": "^3.5.1",
-    "typescript": "^5.2.2"
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "pre-commit": "prettier --write \"**/*.{js,jsx,ts,tsx,css,scss,json,md}\""
+    "name": "blog-quality-project",
+    "version": "1.0.0",
+    "description": "Projet noté - Qualité algorithmique",
+    "main": "src/index.ts",
+    "type": "module",
+    "scripts": {
+        "start": "node dist/index.js",
+        "dev": "nodemon src/index.ts",
+        "format": "prettier --write \"src/**/*.{ts,tsx,json}\"",
+        "format:check": "prettier --check \"src/**/*.{ts,tsx,json}\"",
+        "lint": "eslint src/**/*.{ts,tsx}",
+        "lint:fix": "eslint src/**/*.{ts,tsx} --fix",
+        "prepare": "husky install",
+        "test": "cmd",
+        "build": "tsc && npm run sentry:sourcemaps",
+        "sentry:sourcemaps": "sentry-cli sourcemaps inject --org antoine-chabanel --project node ./dist && sentry-cli sourcemaps upload --org antoine-chabanel --project node ./dist"
+    },
+    "dependencies": {
+        "@sentry/cli": "^2.42.1",
+        "@sentry/node": "^9.1.0",
+        "@sentry/profiling-node": "^9.1.0",
+        "blog-quality-project": "file:",
+        "ejs": "^3.1.10",
+        "express": "^4.21.2",
+        "source-map-loader": "^5.0.0",
+        "ts-loader": "^9.5.2",
+        "ts-node": "^10.9.2"
+    },
+    "devDependencies": {
+        "@commitlint/cli": "^19.7.1",
+        "@commitlint/config-conventional": "^19.7.1",
+        "@eslint/js": "^9.20.0",
+        "eslint": "^9.20.1",
+        "eslint-config-prettier": "^10.0.1",
+        "eslint-plugin-prettier": "^5.2.3",
+        "globals": "^15.15.0",
+        "husky": "^9.1.7",
+        "nodemon": "^3.1.9",
+        "prettier": "3.5.1",
+        "typescript": "^5.2.2",
+        "typescript-eslint": "^8.24.1"
+    },
+    "husky": {
+        "hooks": {
+            "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+            "pre-commit": "prettier --write \"**/*.{js,jsx,ts,tsx,css,scss,json,md}\""
+        }
     }
-  }
 }

@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 import PostService from "./services/PostService";
-require("./instrument");
+import "./instrument";
 
 const app = express();
 
@@ -60,7 +60,7 @@ app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
 
-const Sentry = require("@sentry/node");
+import * as Sentry from "@sentry/node";
 
 Sentry.startSpan(
     {
