@@ -28,7 +28,7 @@ test("Création et modification d'un article", async ({ page }) => {
     await expect(page).toHaveURL("http://localhost:3009/posts");
 
     // vérification de la présence de l'article dans la liste
-    const articleTitle = page.locator(`h2 a >> text="${testArticle.title}"`);
+    const articleTitle = page.locator(`h2 a >> text="${testArticle.title}"`).last();
     await expect(articleTitle).toBeVisible();
 
     // étape 2 : Modification de l'article
