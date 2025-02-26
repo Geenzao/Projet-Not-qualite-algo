@@ -8,7 +8,7 @@ Cela permet de standardiser les messages de commit dans un projet et si le messa
 
 Il y avait un probleme avec git qui configurait les retours a la ligne avec CRLF au lieu de LF. Nous avons donc configuré git pour qu'il laisse les fichiers en LF avec cette commande : git config --global core.autocrlf input
 
-## Prettier
+## 2. Prettier et ESlint
 
 Pour prettier, il nous a suffit d'installer prettier via cette commande : npm install --save-dev prettier
 Et une fois cela fait, nous avons créer un fichier .prettierrc dans lequel nous avons mis nos regles de formattage :
@@ -70,25 +70,25 @@ Enfin il a fallu configurer ESLINT pour ajouter les modules TS.
 Pour débugguer le projet avec --inspect on fait : node --inspect src/index.js  
 On ouvre notre navigateur et on va dans la section inspecteur par exemple : chrome://inspect  
 On clique sur "Open dedicated DevTools for Node". On va dans l'onglet source pour charger le fichier JS et on clique sur un numéro de ligne pour mettre un breakpoint,
-puis on rafraichit la page pour déclencher le breakpoint ça permet d'inspecter les variables et exécuter ligne par ligne.  
-  
+puis on rafraichit la page pour déclencher le breakpoint ça permet d'inspecter les variables et exécuter ligne par ligne.
+
 Pour voir les performances avec autocannon on fait : npm install -g autocannon  
-Puis on le met dans les dépendances de `package.json`. On lance notre application avec : npm run dev  
+Puis on le met dans les dépendances de `package.json`. On lance notre application avec : npm run dev
 
 Pour tester on va simuler 100 utilisateurs en simultanés, pour voir comment l'application gère un nombre élevé de requêtes concurrentes.
 En testant sur 10 secondes ce qui permet d'avoir des statistiques fiables sans bloquer l'application.
 Et on va faire une pipeline de 10 qui va envoyer plusieurs requêtes sans attendre la réponse précédente et
-cela permet de tester les requêtes en rafale et voir si le serveur tient.  
+cela permet de tester les requêtes en rafale et voir si le serveur tient.
 
-Puis dans un autre terminal on fait : ```autocannon -c 100 -p 10 -d 10 http://localhost:3009/posts```
+Puis dans un autre terminal on fait : `autocannon -c 100 -p 10 -d 10 http://localhost:3009/posts`
 Pour lancer 100 connexions pendant 10 secondes avec une pipeline de 10, sur notre route (GET) "posts" car elle récupère tous les posts, donc potentiellement plus lourde.
 On a comme résultats une latence trop longue (5000ms en moyenne, 9500ms max), un nombre de requête trop faible (8req/s en moyenne, 9req/s max),
-on a 30% des requêtes qui échouent 610/2000 et un débit de 4.29 MB/sec.  
-  
-Ensuite on fait : ```autocannon -c 100 -p 10 -d 10 http://localhost:3009/posts/1```  
-Pour lancer 100 connexions pendant 10 secondes avec une pipeline de 10, sur notre route (GET) "posts/1"  pour tester la rapidité de récupération d'un post.
+on a 30% des requêtes qui échouent 610/2000 et un débit de 4.29 MB/sec.
+
+Ensuite on fait : `autocannon -c 100 -p 10 -d 10 http://localhost:3009/posts/1`  
+Pour lancer 100 connexions pendant 10 secondes avec une pipeline de 10, sur notre route (GET) "posts/1" pour tester la rapidité de récupération d'un post.
 On a comme résultats une latence un peu longue (1500ms en moyenne, 2000ms max), un bon nombre de requête (623req/s en moyenne, 719req/s max)
-et un débit de 1,11 MB/sec.  
+et un débit de 1,11 MB/sec.
 
 ## 5. Test Unitaires et End to End
 
@@ -146,3 +146,27 @@ Sentry.startSpan(
 ```
 
 Elle se retrouve bien sur notre compte Sentry.
+
+## 7. Intégration Continue (CI) avec GitHub Actions
+
+Nous avons configuré une pipeline CI avec GitHub Actions qui s'exécute automatiquement à chaque push ou pull request sur la branche main. Cette pipeline effectue les étapes suivantes :
+
+1. **Linting** :
+
+    - Exécute ESLint pour vérifier la qualité du code
+    - Vérifie le respect des conventions de codage
+    - Applique automatiquement les corrections possibles
+
+2. **Tests unitaires** :
+
+    - Exécute les tests Vitest
+    - Vérifie le bon fonctionnement des fonctionnalités principales
+    - Nécessite que le linting soit réussi pour s'exécuter
+
+3. **Tests End-to-End (E2E)** :
+    - Installe les navigateurs nécessaires pour Playwright
+    - Démarre le serveur d'application
+    - Exécute les tests Playwright pour vérifier le bon fonctionnement de l'interface utilisateur
+    - Nécessite que les tests unitaires soient réussis pour s'exécuter
+
+La configuration de la pipeline se trouve dans le fichier `.github/workflows/main.yml`. Elle utilise Node.js v22 et met en cache les dépendances npm pour accélérer les builds.
