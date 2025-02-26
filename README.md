@@ -1,5 +1,7 @@
 # Projet-Not-qualite-algo
 
+Quentin Lorenzo, Antoine Chabanel, Aymeric Sudre
+
 ## 1. Linting des commits
 
 Nous avons ajouter un fichier commit-msg dans lequel nous avons mis : npx --no -- commitlint --edit "$i"
