@@ -50,9 +50,21 @@ app.get("/posts/:id", (req: Request, res: Response) => {
 });
 
 app.post("/posts/:id", (req: Request, res: Response) => {
-    console.log(req.params.id);
-    // const updatedPost = postService.updatePost(parseInt(req.params.id, 10), req.body);
-    res.redirect(`/posts/${req.params.id}`);
+    const postId = parseInt(req.params.id, 10);
+    const updatedData = {
+        title: req.body.title,
+        content: req.body.content,
+        author: req.body.author
+    };
+
+    const updatedPost = postService.updatePost(postId, updatedData);
+
+    if (!updatedPost) {
+        res.status(404).json({ error: "Post not found" });
+        return;
+    }
+
+    res.redirect(`/posts/${postId}`);
 });
 
 const PORT = process.env.PORT || 3009;

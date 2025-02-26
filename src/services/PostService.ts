@@ -1,13 +1,5 @@
 import data from "../data.json";
-
-interface Post {
-    id: number;
-    title: string;
-    content: string;
-    author: string;
-    createdAt: string;
-    updatedAt?: string;
-}
+import Post from "../type/Post";
 
 class PostService {
     private posts: Post[];
@@ -20,8 +12,9 @@ class PostService {
         return this.posts;
     }
 
-    getPostById(id: number): Post | undefined {
-        return this.posts.find((post) => post.id === id);
+    getPostById(id: number): Post | null {
+        const post = this.posts.find((p) => p.id === id);
+        return post || null;
     }
 
     createPost(postData: Omit<Post, "id" | "createdAt" | "updatedAt">): Post {
